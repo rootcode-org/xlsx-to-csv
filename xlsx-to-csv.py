@@ -53,6 +53,27 @@ def xlsx_to_csv(input_file, output_file, worksheet_name):
         f.write('\n'.join(csv_rows))
 
 
+# Convert a zero-based integer index into a spreadsheet column identifier
+# Not used but may be useful later
+def index_to_column(index):
+    output = ''
+    while index >= 26:
+        output = chr(ord('A') + index % 26) + output
+        index = (index/26) - 1
+    output = chr(ord('A') + index) + output
+    return output
+
+
+# Convert a spreadsheet column identifier to a zero-based integer index
+# Not used but may be useful later
+def column_to_index(column_name):
+    value = 0
+    for char in column_name:
+        a = ord(char) - ord('A') + 1
+        value = (value * 26) + a
+    return value - 1
+
+
 if __name__ == '__main__':
 
     if len(sys.argv) < 3:
